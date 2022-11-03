@@ -1,0 +1,22 @@
+{
+  "name": "burger-shop",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "core",
+    "persistence",
+    "interface"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel"
+  },
+  "devDependencies": {
+    "turbo": "1.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.19"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@burger-shop/core",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "dev": "tsc --noEmit --watch"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

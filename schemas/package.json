@@ -1,14 +1,15 @@
 {
-  "name": "@burger-shop/core",
-  "type": "module",
-  "version": "0.0.0",
-  "main": "./src/index.ts",
+  "name": "@burger-shop/schemas",
+  "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "tsc --noEmit",
     "dev": "tsc --noEmit --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^3.19.1"
+  },
   "devDependencies": {
     "typescript": "^4.8.4"
   }

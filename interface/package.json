@@ -6,12 +6,15 @@
   "license": "MIT",
   "scripts": {
     "start": "bun ./src/index.ts",
+    "build": "tsc --noEmit",
     "dev": "nodemon --exec bun ./src/index.ts"
   },
   "dependencies": {
     "@burger-shop/core": "*",
     "@burger-shop/persistence": "*",
-    "find-my-way": "^7.3.1"
+    "find-my-way": "^7.3.1",
+    "zod": "^3.19.1",
+    "zod-validation-error": "^0.2.1"
   },
   "devDependencies": {
     "bun-types": "^0.2.2",

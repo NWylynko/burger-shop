@@ -1,18 +1,13 @@
-
-type MenuItem = {
-  id: string;
-}
-
-type Menu = MenuItem[]
+import { type BurgerItem } from "@burger-shop/schemas/src/burger"
 
 interface Functions {
-  listMenu: () => Promise<Menu>
+  listBurgers: () => Promise<BurgerItem[]>
 }
 
 export const getMenu = (functions: Functions) => async () => {
-  const menu = await functions.listMenu()
+  const burgers = await functions.listBurgers()
 
   return {
-    menu
+    burgers
   }
 }

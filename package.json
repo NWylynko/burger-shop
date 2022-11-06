@@ -5,10 +5,12 @@
   "workspaces": [
     "core",
     "persistence",
+    "schemas",
     "interface"
   ],
   "scripts": {
     "build": "turbo run build",
+    "start": "turbo run start",
     "dev": "turbo run dev --parallel"
   },
   "devDependencies": {

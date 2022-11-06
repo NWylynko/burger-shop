@@ -5,7 +5,7 @@ export const coreLogic = async (db: Database) => {
   return {
     menu: {
       getMenu: getMenu({
-        listMenu: db.menu.listMenu
+        listBurgers: db.burger.list
       })
     }
   }

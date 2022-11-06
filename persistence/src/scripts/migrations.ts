@@ -14,8 +14,10 @@ import SQL, { raw, type Sql } from "sql-template-tag"
 const database = new Database("../mydb.sqlite");
 
 const exec = (sql: Sql) => database.run(sql.text, ...sql.values)
+
+// @ts-ignore
 const get = <Response, > (sql: Sql) => database.prepare(sql.text).get(values(sql.values)) as Response | undefined
-const all = <Response extends [], > (sql: Sql) => database.prepare(sql.text).all(values(sql.values)) as Response
+// const all = <Response extends [], > (sql: Sql) => database.prepare(sql.text).all(values(sql.values)) as Response
 
 const values = (arr: unknown[]) => {
   return arr.reduce<{ [key: string]: unknown }>((obj, value, index) => {

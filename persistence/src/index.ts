@@ -1,6 +1,6 @@
 import { openDB } from "./database"
 
-import { listBurgers } from './burger/list';
+import { burger } from "./functions/burger";
 
 
 export const database = async () => {
@@ -8,9 +8,7 @@ export const database = async () => {
   const db = await openDB()
 
   return {
-    burger: {
-      list: listBurgers(db)
-    }
+    burger: burger(db)
   }
 }
 

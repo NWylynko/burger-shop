@@ -112,6 +112,26 @@ export const burger: CRLUD<typeof schemas> = (db: DB) => ({
         Burgers.burgerId = ${burgerId}
     `);
 
+    // reading again is both a good and bad idea
+
+    // its good as if a silent error occurs with the write above
+    // then the user can see that it didn't seem to write correctly
+    // and try again.
+
+    // its a bad idea as the database might be distributed and
+    // you hit a race condition with the write not propagated yet
+    // so it may be smarter to just return the merged object instead
+  
+    // additionally another read will make this function slower
+    // but its potentially safer to do another read as we don't potentially
+    // send the user data that's not actually from the database, 
+    // when the client is expecting that
+
+    // another thing to note is depending on the caching in the client
+    // they may just do a flush and re-fetch the read function on a mutation
+    // meaning that returning the full object here is useless as they will
+    // just fetch it again. This can be mitigated by running our own cache
+    // and doing smarter caching on our side given the observability we have
     const newBurger = await this.read({ burgerId });
 
     return newBurger;

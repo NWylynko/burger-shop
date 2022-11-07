@@ -3,7 +3,8 @@ import { z } from "zod";
 
 type CreateItem<NewSchema, IdSchema> = (newBurger: NewSchema) => Promise<IdSchema>;
 type ReadItem<IdSchema, ItemSchema> = (ids: IdSchema) => Promise<ItemSchema>;
-type ListItems<ListSchema> = () => Promise<ListSchema>;
+type Pagination = { cursor: string, limit: number }
+type ListItems<ListSchema> = ({ cursor, limit }: Pagination) => Promise<ListSchema>;
 type UpdateItem<IdSchema, UpdateSchema, ItemSchema> = (ids: IdSchema, updateBurger: UpdateSchema) => Promise<ItemSchema>;
 type DeleteItem<IdSchema> = (ids: IdSchema) => Promise<IdSchema>;
 

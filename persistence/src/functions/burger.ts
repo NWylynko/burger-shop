@@ -36,10 +36,11 @@ export const burger: CRLUD<typeof schemas> = (db: DB) => ({
         Burgers.description,
         Burgers.price,
         Burgers.categoryId,
-        Images.imageUrl
+        Images.url as imageUrl
       FROM Burgers, Images
       WHERE
         Burgers.burgerId = ${burgerId}
+        AND Burgers.imageId = Images.imageId
     `);
 
     if (!result) {
@@ -51,7 +52,7 @@ export const burger: CRLUD<typeof schemas> = (db: DB) => ({
     return burger;
 
   },
-  list: async function () {
+  list: async function ({ cursor, limit }) {
     const result = await db.all(SQL`
       SELECT
         Burgers.burgerId,
@@ -59,8 +60,12 @@ export const burger: CRLUD<typeof schemas> = (db: DB) => ({
         Burgers.description,
         Burgers.price,
         Burgers.categoryId,
-        Images.imageUrl
+        Images.url as imageUrl
       FROM Burgers, Images
+      WHERE Burgers.burgerId > ${cursor}
+      AND Burgers.imageId = Images.imageId
+      ORDER BY Burgers.burgerId
+      LIMIT ${limit}
     `);
 
     const burgers = await schemas.list.parseAsync(result);

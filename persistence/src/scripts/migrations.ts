@@ -13,7 +13,13 @@ import SQL, { raw, type Sql } from "sql-template-tag"
 
 const database = new Database("../mydb.sqlite");
 
-const exec = (sql: Sql) => database.run(sql.text, ...sql.values)
+const exec = (sql: Sql) => {
+  if (sql.text === "") {
+    return; // skip
+  }
+  // console.log({ sql: sql.text, values: sql.values })
+  database.run(sql.text, ...sql.values)
+}
 
 // @ts-ignore
 const get = <Response, > (sql: Sql) => database.prepare(sql.text).get(values(sql.values)) as Response | undefined
@@ -79,10 +85,21 @@ database.close()
 async function migrate(id: string, fullPath: string) {
   try {
     const sqlBlob = Bun.file(fullPath);
-    const sqlString = await sqlBlob.text();
-    const sql = raw(sqlString).text;
-  
-    database.run(sql);
+    const sqlStrings = (await sqlBlob.text()).split(';');
+
+    for (const sqlString of sqlStrings) {
+      const sql = raw(sqlString);
+      exec(sql)
+    }
+
+    // yay it worked
+    console.log(`migration ${id} successfully applied`)
+    exec(SQL`
+      UPDATE _migrations
+      SET state = "SUCCESS"
+      WHERE id = ${id}
+    `)
+
   } catch (error) {
     // oh no it didnt work
     console.error(error)
@@ -93,12 +110,5 @@ async function migrate(id: string, fullPath: string) {
       WHERE id = ${id}
     `)
   }
-  // yay it worked
-  console.log(`migration ${id} successfully applied`)
-  exec(SQL`
-    UPDATE _migrations
-    SET state = "SUCCESS"
-    WHERE id = ${id}
-  `)
 
 }

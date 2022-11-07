@@ -9,4 +9,6 @@ This is an example project showing off splitting up the interface (api), the cor
 
 - The Persistence package, this has the single job of implementing the database calls, for example it takes getUser("id") and turns that in to SQL that will look up the user. This package will use zod to generate and verify the types coming from the database.
 
-- The Interface package, this has the job of converting http api calls in to something usable (thou this is done by the http framework mostly). It needs to call the persistence package to setup the database connection and get the impure functions from that package, then can pass the relivent functions through to the core functions to get them setup to be called on request.
+- The Interface package, this has the job of converting http api calls in to something usable (thou this is done by the http framework mostly). It needs to call the persistence package to setup the database connection and get the impure functions from that package, then can pass the relevant functions through to the core functions to get them setup to be called on request.
+
+- The Schemas module, this stores a bunch of zod schemas and extracts the types from them. This is mainly based around strongly typing the functions to and from the database, but core and interface packages can use types from it or derive ones from it if they please. 

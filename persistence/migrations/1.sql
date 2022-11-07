@@ -13,19 +13,19 @@ CREATE TABLE "Burgers" (
 CREATE TABLE "Variants" (
 	"variantId"	TEXT NOT NULL UNIQUE,
 	"burgerId"	TEXT NOT NULL,
-	"variantNamesId"	TEXT NOT NULL,
+	"variantNameId"	TEXT NOT NULL,
 	"imageId"	TEXT NOT NULL,
 	"calories"	INTEGER NOT NULL,
 	FOREIGN KEY("burgerId") REFERENCES "Burgers"("burgerId"),
-	FOREIGN KEY("variantNamesId") REFERENCES "VariantNames"("variantNamesId"),
+	FOREIGN KEY("variantNameId") REFERENCES "VariantNames"("variantNameId"),
 	FOREIGN KEY("imageId") REFERENCES "Images"("imageId"),
 	PRIMARY KEY("variantId")
 );
 
 CREATE TABLE "VariantNames" (
-	"variantNamesId"	TEXT NOT NULL UNIQUE,
+	"variantNameId"	TEXT NOT NULL UNIQUE,
 	"name"	TEXT NOT NULL,
-	PRIMARY KEY("variantNamesId")
+	PRIMARY KEY("variantNameId")
 );
 
 CREATE TABLE "Ingredients" (

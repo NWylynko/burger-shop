@@ -1,9 +1,9 @@
 
-## Burger Shop
+# Burger Shop
 
 This is an example project showing off splitting up the interface (api), the core (business logic) and the persistence (database). This has many benefits including cleaner code, testability, and easier to swap out things like the database or http api in the future if desired.
 
-### Parts
+## Parts
 
 - **The Core module:** This stores all the business logic, it defines the types but does not directly touch anything impure. This means it can install its own packages that do pure functions, for example lodash, but can't directly touch the database or know how the http layer works.
 
@@ -13,4 +13,5 @@ This is an example project showing off splitting up the interface (api), the cor
 
 - **The Schemas module:** This stores a bunch of zod schemas and extracts the types from them. This is mainly based around strongly typing the functions to and from the database, but core and interface packages can use types from it or derive ones from it if they please. 
 
-![Diagram of the relationship between the modules](./burger-shop.svg)
+## Diagram
+![Diagram of the relationship between the modules](./Burger-shop.svg)

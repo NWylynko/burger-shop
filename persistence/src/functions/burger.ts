@@ -14,7 +14,7 @@ export const burger: CRLUD<typeof schemas> = (db: DB) => ({
         imageId,
         name,
         description,
-        price,
+        price
       ) VALUES (
         ${burgerId},
         ${newBurger.categoryId},

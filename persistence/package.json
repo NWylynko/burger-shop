@@ -7,11 +7,12 @@
   "scripts": {
     "build": "tsc --noEmit",
     "dev": "tsc --noEmit --watch",
-    "migrate": "bun run ./src/scripts/migrations.ts"
+    "migrate": "bun run ./src/scripts/migrations.ts",
+    "data": "bun run ./initial-data.ts"
   },
   "dependencies": {
-    "zod": "^3.19.1",
-    "@burger-shop/schemas": "*"
+    "@burger-shop/schemas": "*",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "bun-types": "^0.2.2",

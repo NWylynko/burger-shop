@@ -68,7 +68,8 @@ export const openDB = async () => {
   return {
     run,
     get,
-    all
+    all,
+    sqlite: database
   }
 
 };

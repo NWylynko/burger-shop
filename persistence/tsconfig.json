@@ -12,5 +12,8 @@
 
     // "bun-types" is the important part
     "types": ["bun-types"]
-  }
+  },
+  "exclude": [
+    "./src/functions/_empty.ts"
+  ]
 }

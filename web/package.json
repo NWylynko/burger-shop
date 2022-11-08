@@ -1,0 +1,21 @@
+{
+  "name": "@burger-shop/web",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build"
+  },
+  "dependencies": {
+    "@burger-shop/fetch": "*",
+    "next": "^13.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8"
+  }
+}

@@ -11,7 +11,8 @@
     "@burger-shop/core": "*"
   },
   "devDependencies": {
-    "typescript": "^4.8.4",
-    "@burger-shop/interface": "*"
+    "@burger-shop/interface": "*",
+    "next": "^13.0.2",
+    "typescript": "^4.8.4"
   }
 }

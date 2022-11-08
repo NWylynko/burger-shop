@@ -36,5 +36,5 @@ export const startServer = (options: Options) => Bun.serve({
   // certFile: './cert.pem',
   // keyFile: './key.pem',
 
-  port: 3000, // number or string
+  port: 4000, // number or string
 });

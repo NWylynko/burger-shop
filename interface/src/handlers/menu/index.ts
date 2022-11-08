@@ -4,7 +4,7 @@ import { GetMenuHandler } from "./getMenu";
 
 
 export const MenuRouter = (router: Router, logic: Logic) => {
-  router.get("/menu/getMenu", GetMenuHandler({
+  router.get("/menu", GetMenuHandler({
     getMenu: logic.menu.getMenu
   }))
 }

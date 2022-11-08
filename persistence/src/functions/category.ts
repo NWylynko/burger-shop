@@ -4,7 +4,7 @@ import type { CRLUD } from '../CRLUD';
 import { category as schemas } from '@burger-shop/schemas/src/category';
 import type { DB } from "../database";
 
-export const category: CRLUD<typeof schemas> = (db: DB) => ({
+export const category = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (newCategory) {
     const categoryId = randomUUID()
     const result = await db.run(SQL`

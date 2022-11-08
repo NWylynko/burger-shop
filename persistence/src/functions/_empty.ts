@@ -13,7 +13,7 @@ import type { DB } from "../database";
 // replace 'emptyOldObject' with 'old' + name
 // replace 'emptyMergedObject' with 'merged' + name
 
-export const emptyObject: CRLUD<typeof schemas> = (db: DB) => ({
+export const emptyObject = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (emptyNewObject) {
     const emptyObjectId = randomUUID();
     const result = await db.run(SQL`

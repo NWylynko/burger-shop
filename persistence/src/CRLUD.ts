@@ -17,7 +17,7 @@ export type CRLUD<
   ItemSchema = z.infer<Schemas["item"]>,
   ListSchema = z.infer<Schemas["list"]>,
   UpdateSchema = z.infer<Schemas["update"]>
-  > = (db: DB) => {
+  > = {
     create: CreateItem<NewSchema, IdSchema>;
     read: ReadItem<IdSchema, ItemSchema>;
     list: ListItems<ListSchema>;
@@ -32,3 +32,7 @@ type BaseSchemas = {
   item: z.ZodObject<any, any, any>;
   list: z.ZodArray<z.ZodObject<any, any, any>>;
 };
+
+
+// these are extra database functions that can be added and implemented if needed, not part of the base thou.
+export type LookupItems<LookupSchema, ListSchema> = (lookup: LookupSchema, { cursor, limit }: Pagination) => Promise<ListSchema>

@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import type { CRLUD } from "../CRLUD";
 import type { DB } from "../database";
 
-export const image: CRLUD<typeof schemas> = (db: DB) => ({
+export const image = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (newImage) {
     const imageId = randomUUID();
     const result = await db.run(SQL`

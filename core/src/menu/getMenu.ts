@@ -1,3 +1,4 @@
+import { Pagination } from "@/types"
 import type { BurgerList } from "@burger-shop/schemas/src/burger"
 import type { CategoryList } from "@burger-shop/schemas/src/category"
 

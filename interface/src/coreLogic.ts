@@ -11,7 +11,8 @@ export const coreLogic = async (db: Database) => {
         listCategories: db.category.list
       }),
       getMenuItem: getMenuItem({
-        getBurger: db.burger.read
+        getBurger: db.burger.read,
+        lookupVariants: db.variant.lookup
       })
     }
   }

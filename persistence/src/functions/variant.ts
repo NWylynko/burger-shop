@@ -1,10 +1,17 @@
-import { variant as schemas } from "@burger-shop/schemas/src/variant";
+import { variant as schemas, type VariantLookup, type VariantList } from "@burger-shop/schemas/src/variant";
 import { randomUUID } from 'crypto';
 import SQL from 'sql-template-tag';
-import type { CRLUD } from "../CRLUD";
+import type { CRLUD, LookupItems } from "../CRLUD";
 import type { DB } from "../database";
 
-export const variant: CRLUD<typeof schemas> = (db: DB) => ({
+type VariantFunctions = CRLUD<typeof schemas> & {
+
+  // here I am explicitly stating that im only implmenting lookup by burgerId
+  // right now, in the future I could cover more of the ids if I see the need
+  lookup: LookupItems<Pick<VariantLookup, "burgerId">, VariantList> 
+}
+
+export const variant = (db: DB): VariantFunctions => ({
   create: async function (newVariant) {
     const variantId = randomUUID();
     const result = await db.run(SQL`
@@ -29,11 +36,15 @@ export const variant: CRLUD<typeof schemas> = (db: DB) => ({
   read: async function ({ variantId }) {
     const result = await db.get(SQL`
       SELECT
-        variantId,
-        calories
-      FROM Variants
-      WHERE
-        variantId = ${variantId}
+        Variants.variantId,
+        Variants.calories,
+        Variants.burgerId,
+        VariantNames.name as name,
+        Images.url as imageUrl
+      FROM Variants, VariantNames, Images
+      WHERE variantId = ${variantId}
+      AND Variants.variantNameId = VariantNames.variantNameId
+      AND Variants.imageId = Images.imageId
     `);
 
     if (!result) {
@@ -48,10 +59,15 @@ export const variant: CRLUD<typeof schemas> = (db: DB) => ({
   list: async function ({ cursor, limit }) {
     const result = await db.all(SQL`
       SELECT
-        variantId,
-        calories
-      FROM Variants
+        Variants.variantId,
+        Variants.calories,
+        Variants.burgerId,
+        VariantNames.name as name,
+        Images.url as imageUrl
+      FROM Variants, VariantNames, Images
       WHERE variantId > ${cursor}
+      AND Variants.variantNameId = VariantNames.variantNameId
+      AND Variants.imageId = Images.imageId
       ORDER BY variantId
       LIMIT ${limit}
     `);
@@ -112,4 +128,36 @@ export const variant: CRLUD<typeof schemas> = (db: DB) => ({
       variantId,
     };
   },
+  lookup: async function ({ burgerId }, { cursor, limit }) {
+    
+    if (burgerId !== undefined) {
+
+      const result = await db.all(SQL`
+        SELECT
+          Variants.variantId,
+          Variants.calories,
+          Variants.burgerId,
+          VariantNames.name as name,
+          Images.url as imageUrl
+        FROM Variants, VariantNames, Burgers, Images
+        WHERE variantId > ${cursor}
+        AND Variants.variantNameId = VariantNames.variantNameId
+        AND Variants.imageId = Images.imageId
+        AND Variants.burgerId = Burgers.burgerId
+        AND Burgers.burgerId = ${burgerId}
+        ORDER BY variantId
+        LIMIT ${limit}
+      `);
+
+      const variant = await schemas.list.parseAsync(result);
+
+      return variant;
+      
+    } else {
+
+      throw new Error(`lookup of variant by the id you passed through is not supported`)
+
+    }
+
+  }
 })

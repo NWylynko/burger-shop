@@ -4,7 +4,7 @@ import SQL from 'sql-template-tag';
 import type { CRLUD } from "../CRLUD";
 import type { DB } from "../database";
 
-export const ingredient: CRLUD<typeof schemas> = (db: DB) => ({
+export const ingredient = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (newIngredient) {
     const ingredientId = randomUUID();
     const result = await db.run(SQL`

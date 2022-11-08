@@ -3,7 +3,7 @@ import { variantsTag as schemas } from "@burger-shop/schemas/src/variantsTag";
 import type { CRLUD } from "../CRLUD";
 import type { DB } from "../database";
 
-export const variantsTag: CRLUD<typeof schemas> = (db: DB) => ({
+export const variantsTag = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (newVariantsTag) {
     const result = await db.run(SQL`
       INSERT INTO VariantsTags (

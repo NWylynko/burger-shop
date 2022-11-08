@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 import type { CRLUD } from "../CRLUD";
 import type { DB } from "../database";
 
-export const variantName: CRLUD<typeof schemas> = (db: DB) => ({
+export const variantName = (db: DB): CRLUD<typeof schemas> => ({
   create: async function (newVariant) {
     const variantNameId = randomUUID();
     const result = await db.run(SQL`

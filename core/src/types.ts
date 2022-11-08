@@ -1,1 +1,1 @@
-type Pagination = { cursor: string, limit: number }
+export type Pagination = { cursor: string, limit: number }

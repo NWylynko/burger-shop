@@ -14,10 +14,16 @@ const variantBase = z.object({
 })
 
 // here we add the ids, things this references 
-const variantBaseWithIds = variantBase
+const variantReferences = z.object({})
   .merge(burger.id)  // we merge in any ids we need
   .merge(variantName.id)
   .merge(image.id)
+
+// this is the ids for us to lookup this object given one of the references
+const variantLookup = variantReferences.partial()
+
+// here we combine the base with the reference Ids
+const variantBaseWithIds = variantBase.merge(variantReferences)
 
 // this holds everything we need to create a new object
 const variantNew = z.object({
@@ -38,10 +44,12 @@ const variantUpdate = z.object({
 const variantItem = z.object({
   // here we define "custom" items, they are pulled in through relations
   // we can have the id of the thing if we want, but its not required.
+  name: z.string(),
+  imageUrl: z.string().url()
 })
   .merge(variantId)
   .merge(variantBase)
-  // .merge() // for any references where we just want the id, not a value from it, merge it in
+  .merge(burger.id) // for any references where we just want the id, not a value from it, merge it in
 
 // when fetching a list of the object we need a way to verify it
 // so here we just want an array of it  
@@ -53,7 +61,8 @@ export const variant = {
   new: variantNew,
   update: variantUpdate,
   item: variantItem,
-  list: variantList
+  list: variantList,
+  lookup: variantLookup,
 }
 
 type VariantSchemas = typeof variant
@@ -63,3 +72,4 @@ export type VariantNew = z.infer<VariantSchemas["new"]>
 export type VariantUpdate = z.infer<VariantSchemas["update"]>
 export type VariantItem = z.infer<VariantSchemas["item"]>
 export type VariantList = z.infer<VariantSchemas["list"]>
+export type VariantLookup = z.infer<VariantSchemas["lookup"]>

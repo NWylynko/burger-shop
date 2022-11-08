@@ -1,4 +1,3 @@
-import { DB } from "./database";
 import { z } from "zod";
 
 type CreateItem<NewSchema, IdSchema> = (newBurger: NewSchema) => Promise<IdSchema>;

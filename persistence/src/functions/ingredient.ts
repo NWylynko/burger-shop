@@ -1,10 +1,15 @@
-import { ingredient as schemas } from "@burger-shop/schemas/src/ingredient";
+import { ingredient as schemas, IngredientList } from "@burger-shop/schemas/src/ingredient";
+import { VariantsIngredientId } from "@burger-shop/schemas/src/variantsIngredient";
 import { randomUUID } from 'crypto';
 import SQL from 'sql-template-tag';
-import type { CRLUD } from "../CRLUD";
+import type { CRLUD, LookupItems } from "../CRLUD";
 import type { DB } from "../database";
 
-export const ingredient = (db: DB): CRLUD<typeof schemas> => ({
+type IngredientFunctions = CRLUD<typeof schemas> & {
+  lookup: LookupItems<Pick<VariantsIngredientId, "variantId">, IngredientList>
+}
+
+export const ingredient = (db: DB): IngredientFunctions => ({
   create: async function (newIngredient) {
     const ingredientId = randomUUID();
     const result = await db.run(SQL`
@@ -100,4 +105,31 @@ export const ingredient = (db: DB): CRLUD<typeof schemas> => ({
       ingredientId,
     };
   },
+  lookup: async function ({ variantId }, { cursor, limit }) {
+    if (variantId !== undefined) {
+
+      const result = await db.all(SQL`
+        SELECT 
+          VariantsIngredients.ingredientId,
+          Ingredients.name
+        FROM
+          Variants, VariantsIngredients, Ingredients
+        WHERE Variants.variantId = ${variantId}
+        AND Variants.variantId = VariantsIngredients.variantId
+        AND VariantsIngredients.ingredientId = Ingredients.ingredientId
+        AND VariantsIngredients.ingredientId > ${cursor}
+        ORDER BY VariantsIngredients.ingredientId
+        LIMIT ${limit}
+      `);
+
+      const ingredients = await schemas.list.parseAsync(result);
+
+      return ingredients;
+      
+    } else {
+
+      throw new Error(`lookup of variant by the id you passed through is not supported`)
+
+    }
+  }
 })

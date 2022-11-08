@@ -1,10 +1,15 @@
-import { tag as schemas } from "@burger-shop/schemas/src/tag";
+import { VariantsTagId } from '@burger-shop/schemas/src/variantsTag';
+import { tag as schemas, TagList } from "@burger-shop/schemas/src/tag";
 import { randomUUID } from 'crypto';
 import SQL from 'sql-template-tag';
-import type { CRLUD } from "../CRLUD";
+import type { CRLUD, LookupItems } from "../CRLUD";
 import type { DB } from "../database";
 
-export const tag = (db: DB): CRLUD<typeof schemas> => ({
+type TagFunctions = CRLUD<typeof schemas> & {
+  lookup: LookupItems<Pick<VariantsTagId, "variantId">, TagList> 
+}
+
+export const tag = (db: DB): TagFunctions => ({
   create: async function (newTag) {
     const tagId = randomUUID();
     const result = await db.run(SQL`
@@ -100,4 +105,31 @@ export const tag = (db: DB): CRLUD<typeof schemas> => ({
       tagId,
     };
   },
+  lookup: async function ({ variantId }, { cursor, limit }) {
+    if (variantId !== undefined) {
+
+      const result = await db.all(SQL`
+        SELECT 
+          VariantsTags.tagId,
+          Tags.name
+        FROM
+          Variants, VariantsTags, Tags
+        WHERE Variants.variantId = ${variantId}
+        AND Variants.variantId = VariantsTags.variantId
+        AND VariantsTags.tagId = Tags.tagId
+        AND VariantsTags.tagId > ${cursor}
+        ORDER BY VariantsTags.tagId
+        LIMIT ${limit}
+      `);
+
+      const ingredients = await schemas.list.parseAsync(result);
+
+      return ingredients;
+      
+    } else {
+
+      throw new Error(`lookup of variant by the id you passed through is not supported`)
+
+    }
+  }
 })

@@ -24,7 +24,5 @@ export const getMenu = (functions: Functions) => async () => {
     }
   })
 
-  return {
-    menu
-  }
+  return menu
 }

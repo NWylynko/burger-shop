@@ -15,3 +15,5 @@ export const getBurgerHandler = (functions: Functions): HandleRequest => async (
 
   return JsonResponse(200, result)
 }
+
+export type GetBurgerItemResponse = ReturnType<Functions["getMenuItem"]>

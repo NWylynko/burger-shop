@@ -12,3 +12,5 @@ export const GetMenuHandler = (functions: Functions): HandleRequest => async (re
 
   return JsonResponse(200, result)
 }
+
+export type GetMenuResponse = ReturnType<Functions["getMenu"]>

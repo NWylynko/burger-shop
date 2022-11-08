@@ -13,7 +13,7 @@ export const getMenuItem = (functions: Functions) => async (burgerId: string) =>
   const variants = await functions.lookupVariants({ burgerId }, { cursor: '', limit: 10 })
 
   return {
-    burger,
+    ...burger,
     variants
   }
 }

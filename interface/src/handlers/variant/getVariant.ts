@@ -15,5 +15,3 @@ export const getVariantHandler = (functions: Functions): HandleRequest => async 
 
   return JsonResponse(200, result)
 }
-
-export type GetVariantItemResponse = ReturnType<Functions["getVariant"]>

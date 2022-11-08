@@ -1,9 +1,10 @@
-import { VariantId, VariantItem } from '@burger-shop/schemas/src/variant';
+import { variant, VariantId, VariantItem } from '@burger-shop/schemas/src/variant';
 import { VariantsIngredientId } from '@burger-shop/schemas/src/variantsIngredient';
 import { VariantsTagId } from '@burger-shop/schemas/src/variantsTag';
 import { IngredientList } from '@burger-shop/schemas/src/ingredient';
 import { TagList } from '@burger-shop/schemas/src/tag';
-import { Pagination } from "@/types"
+import { Pagination } from "../types"
+import { z } from "zod"
 
 interface Functions {
   getVariant: (ids: VariantId) => Promise<VariantItem>
@@ -21,9 +22,16 @@ export const getVariant = (functions: Functions) => async (variantId: string) =>
   const tags = allTags.map(({ name }) => name)
   const ingredients = allIngredients.map(({ name }) => name)
 
-  return {
+  return getVariantSchema.parseAsync({
     ...variant,
     tags,
     ingredients
-  }
+  })
 }
+
+export const getVariantSchema = variant.item.merge(
+  z.object({
+    tags: z.array(z.string()),
+    ingredients: z.array(z.string()),
+  })
+)

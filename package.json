@@ -6,7 +6,8 @@
     "core",
     "persistence",
     "schemas",
-    "interface"
+    "interface",
+    "fetch"
   ],
   "scripts": {
     "build": "turbo run build",

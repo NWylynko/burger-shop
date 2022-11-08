@@ -1,6 +1,7 @@
-import { Pagination } from "@/types"
-import type { BurgerList } from "@burger-shop/schemas/src/burger"
-import type { CategoryList } from "@burger-shop/schemas/src/category"
+import { Pagination } from "../types"
+import { z } from "zod"
+import { burger, BurgerList } from "@burger-shop/schemas/src/burger"
+import { category, CategoryList } from "@burger-shop/schemas/src/category"
 
 interface Functions {
   listBurgers: (page: Pagination) => Promise<BurgerList>
@@ -24,5 +25,13 @@ export const getMenu = (functions: Functions) => async () => {
     }
   })
 
-  return menu
+  return getMenuSchema.parseAsync(menu)
 }
+
+export const getMenuSchema = z.array(
+  category.item.merge(
+    z.object({
+      burgers: burger.list
+    })
+  )
+)

@@ -1,0 +1,17 @@
+{
+  "name": "@burger-shop/fetch",
+  "version": "1.0.0",
+  "source": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "dev": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@burger-shop/core": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4",
+    "@burger-shop/interface": "*"
+  }
+}

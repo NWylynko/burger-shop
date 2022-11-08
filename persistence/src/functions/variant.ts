@@ -6,7 +6,7 @@ import type { DB } from "../database";
 
 type VariantFunctions = CRLUD<typeof schemas> & {
 
-  // here I am explicitly stating that im only implmenting lookup by burgerId
+  // here I am explicitly stating that im only implementing lookup by burgerId
   // right now, in the future I could cover more of the ids if I see the need
   lookup: LookupItems<Pick<VariantLookup, "burgerId">, VariantList> 
 }

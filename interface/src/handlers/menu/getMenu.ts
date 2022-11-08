@@ -1,11 +1,12 @@
 import { Logic } from "@/coreLogic"
 import { JsonResponse } from "@/JsonResponse"
+import { HandleRequest } from "@/server"
 
 interface Functions {
   getMenu: Logic["menu"]["getMenu"]
 }
 
-export const GetMenuHandler = (functions: Functions) => async (req: Request): Promise<Response> => {
+export const GetMenuHandler = (functions: Functions): HandleRequest => async (req) => {
 
   const result = await functions.getMenu()
 

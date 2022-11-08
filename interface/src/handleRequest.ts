@@ -5,9 +5,9 @@ import { fromZodError } from "zod-validation-error"
 
 export const handleRequest = (router: Router): HandleRequest => async (req) => {
 
-  const url = new URL(req.url)
+  const { pathname } = req.URL
 
-  console.log(`new request for ${url.pathname}`)
+  console.log(`new request for ${pathname}`)
 
   try {
     

@@ -13,6 +13,7 @@
     "@burger-shop/core": "*",
     "@burger-shop/persistence": "*",
     "@burger-shop/schemas": "*",
+    "fast-querystring": "^1.0.0",
     "find-my-way": "^7.3.1",
     "zod": "^3.19.1",
     "zod-validation-error": "^0.2.1"

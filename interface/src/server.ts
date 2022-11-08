@@ -1,5 +1,9 @@
+import qs from 'fast-querystring';
 
-export type HandleRequest = (req: Request) => Promise<Response>
+
+type CustomRequest = Request & { URL: URL, params: ReturnType<typeof qs["parse"]> };
+
+export type HandleRequest = (req: CustomRequest) => Promise<Response>
 
 type Options = {
   handleRequest: HandleRequest
@@ -7,7 +11,14 @@ type Options = {
 
 export const startServer = (options: Options) => Bun.serve({
   fetch(req: Request) {
-    return options.handleRequest(req)
+
+    const url = new URL(req.url)
+    // qs.parse doesn't parse out the initial '?' so if its there we need to slice it out 
+    const params = qs.parse(url.search[0] === "?" ? url.search.slice(1, url.search.length) : url.search)
+
+    const customRequest = Object.assign(req, { URL: url, params })
+    
+    return options.handleRequest(customRequest)
   },
 
   // baseURI: "http://localhost:3000",

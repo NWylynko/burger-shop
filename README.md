@@ -13,5 +13,9 @@ This is an example project showing off splitting up the interface (api), the cor
 
 - **The Schemas module:** This stores a bunch of zod schemas and extracts the types from them. This is mainly based around strongly typing the functions to and from the database, but core and interface packages can use types from it or derive ones from it if they please. 
 
+- **The Fetch module:** This uses is a simple module that contains fetch functions to call the interface, using zod schemas to verify the request response. This crosses the network boundary so things need to be extra safe to ensure things work as expected.
+
+- **The Web Service:** Running nextjs 13 and the new app dir, this uses the fetch module to call our services.
+
 ## Diagram
 ![Diagram of the relationship between the modules](./Burger-shop.svg)

@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    ".gitignore": true,
+    ".turbo": true,
+    ".vscode": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/.vscode": true,
+    "**/next-env.d.ts": true,
+    "**/next.config.js": true,
+    "**/node_modules": true,
+    "**/tsconfig.json": true,
+    "Burger-shop.excalidraw": true,
+    "LICENSE": true,
+    "mydb.sqlite": true,
+    "node_modules": true,
+    "turbo.json": true,
+    "yarn.lock": true
+  }
+}

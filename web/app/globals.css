@@ -1,0 +1,52 @@
+
+html {
+
+  --background: #473335;
+  --foreground: #fffff6;
+
+  --accent-orange: #FCAA67;
+  --accent-red: #B0413E;
+  --accent-blue: #548687;
+
+
+  background-color: var(--background);
+  color: var(--background);
+}
+
+body {
+  min-height: 100vh;
+}
+
+.page {
+  /* got to minus off the 64px of padding */
+  max-width: 900px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0 32px;
+  background-color: var(--foreground);
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  margin: 64px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1, h2 {
+  font-weight: 900;
+  color: var(--accent-red);
+}
+
+h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--accent-orange);
+}
+
+a {
+  color: var(--background);
+  text-decoration: none;
+}

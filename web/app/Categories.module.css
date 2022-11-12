@@ -1,0 +1,70 @@
+
+.categories {
+
+}
+
+.category {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+
+  grid-template:
+    "name name name"
+    "desc desc desc";
+
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .category {
+    grid-template:
+      "name name"
+      "desc desc";
+  
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .category {
+    grid-template:
+      "name"
+      "desc";
+  
+    grid-template-columns: 1fr;
+  }
+}
+
+.categoryName {
+  grid-area: name;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.categoryDescription {
+  grid-area: desc;
+  text-align: center;
+  margin-bottom: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.burger {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  max-width: 300px;
+}
+
+.horizontal {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.burgerDescription {
+  text-align: center;
+}

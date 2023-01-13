@@ -5,6 +5,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "strict": true,
+    "skipLibCheck": true,
 
     "paths": {
       "@/*": ["./src/*"]

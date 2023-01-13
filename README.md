@@ -19,3 +19,22 @@ This is an example project showing off splitting up the interface (api), the cor
 
 ## Diagram
 ![Diagram of the relationship between the modules](./Burger-shop.svg)
+
+## Setup
+
+You'll need some stuff, node, yarn, bun, and a terminal.
+
+1. Install dependencies
+
+ - `yarn`
+
+2. Setup the database, its just a local sqlite3 so nothing crazy
+   
+ - `cd persistence` // the database layer
+ - `bun run migrate` // run the migrations
+ - `bun run data` // seed the database with some data (thou not necessary if you don't want the test data for dev)
+ - `cd ..` // back to the root
+
+3. Run it
+
+ - `yarn dev`

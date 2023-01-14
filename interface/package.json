@@ -7,7 +7,7 @@
   "scripts": {
     "start": "bun ./src/index.ts",
     "build": "tsc --noEmit",
-    "dev": "nodemon --exec bun ./src/index.ts"
+    "dev": "nodemon --config ./nodemon.json --exec bun ./src/index.ts"
   },
   "dependencies": {
     "@burger-shop/core": "*",

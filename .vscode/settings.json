@@ -9,6 +9,7 @@
     "**/next-env.d.ts": true,
     "**/next.config.js": true,
     "**/node_modules": true,
+    "**/nodemon.json": true,
     "**/tsconfig.json": true,
     "Burger-shop.excalidraw": true,
     "LICENSE": true,

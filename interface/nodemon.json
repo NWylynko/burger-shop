@@ -1,0 +1,8 @@
+{
+  "watch": [
+    "src",
+    "../core/src",
+    "../persistence/src",
+    "../schemas/src"
+  ]
+}
